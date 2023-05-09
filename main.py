@@ -20,8 +20,10 @@ for line in lines:
 	line = "".join(line.splitlines())
 	if line[0:4] == "say,": 
 		compiled_code += f"console.log(\"{line[4:]}\");\n"
+	elif line[0:5] == "hear,":
+		compiled_code += f"prompt(\"{line[5:]}\")"
 	else:
-		compiled_code += "console.log(\"what the fuck bro? I can't read your potato code!\")"
+		compiled_code += "console.log(\"a\")"
 
 with open(args.output_file, 'w') as f:
 	f.write(compiled_code)
