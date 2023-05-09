@@ -1,1 +1,1 @@
-python main.py main.flow && node out.js
+py main.py main.flow && node out.js

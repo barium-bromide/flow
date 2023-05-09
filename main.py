@@ -1,4 +1,5 @@
 import argparse
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input_file', help='Input file path')
@@ -16,7 +17,11 @@ with open(args.input_file, 'r') as f:
 
 for line in lines:
 	# TODO: do something with lines
-	compiled_code += "console.log(\"Hello, World!\");"
+	line = "".join(line.splitlines())
+	if line[0:4] == "say,": 
+		compiled_code += f"console.log(\"{line[4:]}\");\n"
+	else:
+		compiled_code += "console.log(\"what the fuck bro? I can't read your potato code!\")"
 
 with open(args.output_file, 'w') as f:
 	f.write(compiled_code)
