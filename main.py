@@ -16,23 +16,20 @@ with open(args.input_file, 'r') as f:
 
 
 for line in lines:
-	# TODO: do something with lines
-	line = line.strip()
-	token = line.split(" ")
-	if token[0] == "say" and token[-1][-1] == ";":
-		token[-1] = token[-1][:-1] + ""
-		compiled_code += f'console.log(\"{" ".join(token[1:])}\");\n'
-	elif token[0] in ("bool", "str", "num") and token[-1][-1] == ";":
-			token[-1] = token[-1][:-1] + ""
-			var_token = "".join(token[1:]).split("=")
-			if token[0] == "str":
-				compiled_code += f'let {var_token[0]} = \"{"=".join(var_token[1:])}\";\n'
-			elif token[0] == "num":
-				if "=".join(var_token[1:]).isnumeric():
-					compiled_code += f'let {var_token[0]} = {"=".join(var_token[1:])};\n'
-			elif token[0] == "bool":
-				if "=".join(var_token[1:]) in ("true", "false"):
-					compiled_code += f'let {var_token[0]} = {"=".join(var_token[1:])};\n'
+    line = line.strip()
+    token = line.split(" ")
+    if token[-1].endswith(";"):
+        token[-1] = token[-1][:-1] 
+        if token[0] == "say":
+            compiled_code += f'console.log(\"{" ".join(token[1:])}\");\n'
+        elif token[0] in ("str", "num", "bool"):
+            var_token = "".join(token[1:]).split("=", 1)
+            if token[0] == "str":
+                compiled_code += f'let {var_token[0]} = \"{var_token[1]}\";\n'
+            elif token[0] == "num" and var_token[1].isnumeric():
+                compiled_code += f'let {var_token[0]} = {var_token[1]};\n'
+            elif token[0] == "bool" and var_token[1] in ("true", "false"):
+                compiled_code += f'let {var_token[0]} = {var_token[1]};\n'
 
 with open(args.output_file, 'w') as f:
 	f.write(compiled_code)

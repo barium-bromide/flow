@@ -1,2 +1,2 @@
 say sup abc;
-bool a = true;
+num a = 2;
