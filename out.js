@@ -1,2 +1,1 @@
-console.log("sup abc");
-let a = 2;
+console.log("sup abc");let a = [[23.0, 'asdfasdf']];

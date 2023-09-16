@@ -1,2 +1,2 @@
-say sup abc;
-num a = 2;
+: sup abc;
+list a = num 23 str asdfasdf;
